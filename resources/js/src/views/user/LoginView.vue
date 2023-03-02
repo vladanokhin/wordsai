@@ -102,20 +102,9 @@ export default {
         }
     },
     methods: {
-        // ...mapActions(["LogIn", "app/SetValidationErrors"]),
-
         async submit() {
-        try {
             await store.dispatch('LogIn', this.form)
-            // this.message = ''; // clear error message
-            // this.$router.push({ name: 'dashboard' }); // TODO: redirect to prev page
-        } catch (error) {
-            // this.message = await this["app/SetValidationErrors"]({
-            //     form: this.$refs.loginForm,
-            //     error: error,
-            // });
-        }
-    },
+        },
     }
 }
 </script>

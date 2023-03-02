@@ -12,8 +12,10 @@ const getters = {
 
 const actions = {
     async LogIn({commit}, form) {
-        await axios.post("login", form)
-            .then(response => commit("setUser", response.data));
+        await axios.get('csrf-cookie').then(response => {
+            axios.post("login", form)
+                .then(response => commit("setUser", response.data));
+        });
     },
 
     async RestorePassword({commit}, form) {
