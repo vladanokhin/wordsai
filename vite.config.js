@@ -17,16 +17,16 @@ export default defineConfig({
         }
     },
     plugins: [
-        // viteStaticCopy({
-        //     targets: [
-        //         {
-        //             src: 'resources/images/',
-        //             dest: '../assets/'
-        //         }
-        //     ]
-        // }),
+        viteStaticCopy({
+            targets: [
+                {
+                    src: 'resources/images/',
+                    dest: '../assets/'
+                }
+            ]
+        }),
         laravel({
-            input: ['resources/scss/app.scss', 'resources/js/app.js', 'resources/css/app.css'],
+            input: ['resources/scss/app.scss', 'resources/js/app.js'],
             refresh: true,
         }),
         vue({
