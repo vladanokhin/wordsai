@@ -103,7 +103,8 @@ export default {
     },
     methods: {
         async submit() {
-            await store.dispatch('LogIn', this.form)
+            await store.dispatch('LogIn', this.form);
+            return this.$router.push({name: 'user.cabinet'});
         },
     }
 }

@@ -1,10 +1,10 @@
 <template>
-    <h1>Admin list</h1>
+    <h1>Cabinet</h1>
 </template>
 
 <script>
 export default {
-    name: "ListView"
+    name: "CabinetView"
 }
 </script>
 

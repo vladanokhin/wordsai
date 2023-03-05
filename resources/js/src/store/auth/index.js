@@ -1,5 +1,7 @@
 import axios from "axios";
 import _ from "lodash";
+import { getCookieMap } from '@src/helpers/'
+import store from "@src/store/index.js";
 
 const state = {
     user: null
@@ -26,9 +28,10 @@ const actions = {
         await axios.post("reset-password", form);
     },
 
-    async CurrentUser({commit}, user) {
-        await axios.post("user", user)
-            .then(response => commit("setUser", response.data));
+    CurrentUser({commit}, user) {
+        axios.get("user", user)
+            .then(response => commit("setUser", response.data))
+            .catch(response => commit("setUser", null))
     },
 
     async ChangeProfile({commit}, user) {
@@ -43,15 +46,12 @@ const actions = {
     async LogOut({ commit }) {
         await axios.post("logout")
             .then(response => commit("setUser", null));
-    },
-
-    setUser({commit}, user) {
-        commit("setUser", user)
-    },
+    }
 };
 
 const mutations = {
     setUser(state, user) {
+        console.log('Saved user', user)
         state.user = _.isEmpty(user) ? null : user;
     },
 };
