@@ -4,7 +4,11 @@
             <div class="logo-src"></div>
             <div class="header__pane ml-auto">
                 <div>
-                    <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
+                    <button @click="burgerSidebar"
+                        type="button"
+                        class="hamburger close-sidebar-btn hamburger--elastic"
+                        data-class="closed-sidebar"
+                    >
                         <span class="hamburger-box">
                             <span class="hamburger-inner"></span>
                         </span>
@@ -25,7 +29,7 @@
             <span>
                 <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
                     <span class="btn-icon-wrapper">
-                        <i class="fa fa-ellipsis-v fa-w-6"></i>
+                        <i class="icofont-listine-dots"></i>
                     </span>
                 </button>
             </span>
@@ -49,7 +53,7 @@
                             <div class="btn-group">
                                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
                                     <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg" alt="">
-                                    <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                    <i class="icofont-rounded-down ml-2 opacity-8"></i>
                                 </a>
                                 <div tabindex="-1" role="menu" aria-hidden="true" class="rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right">
                                     <div class="dropdown-menu-header">
@@ -161,8 +165,20 @@
 </template>
 
 <script>
+import $ from "jquery"
+
 export default {
-    name: "HeaderLayout"
+    name: "HeaderLayout",
+    methods: {
+        burgerSidebar(event) {
+            const closeBtn = $(event.currentTarget),
+                  containerElement = $('.app-container'),
+                  classToSwitch = closeBtn.data('class');
+
+            containerElement.toggleClass(classToSwitch);
+            closeBtn.toggleClass('is-active');
+        }
+    }
 }
 </script>
 
