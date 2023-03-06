@@ -1,4 +1,3 @@
-@use 'sass:math';
 // Content Boxes
 
 // Variables
@@ -49,7 +48,7 @@ $widget-spacer: $spacer;
     margin-top: $widget-spacer;
 
     .progress-sub-label {
-      margin-top: math.div($widget-spacer, 3);
+      margin-top: ($widget-spacer / 3);
       opacity: .5;
       display: flex;
       align-content: center;

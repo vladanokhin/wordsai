@@ -75,6 +75,6 @@
 .pagination-rounded {
   li a {
     @include border-radius(50px !important);
-    margin: 0 ($layout-spacer-x * 0.2);
+    margin: 0 ($layout-spacer-x / 5);
   }
 }

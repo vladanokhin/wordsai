@@ -1,5 +1,3 @@
-@use 'sass:math';
-
 // Sidebar Base
 
 .app-sidebar {
@@ -10,8 +8,8 @@
   min-width: $app-sidebar-width;
   position: relative;
   flex: 0 0 $app-sidebar-width;
-  //margin-top: -$app-header-height;
-  //padding-top: $app-header-height;
+  margin-top: -$app-header-height;
+  padding-top: $app-header-height;
   transition: all .2s;
 
   .app-sidebar__inner {
@@ -50,7 +48,7 @@
 .app-sidebar__heading {
   text-transform: uppercase;
   font-size: $font-size-xs;
-  margin: math.div($layout-spacer-x, 2) 0;
+  margin: ($layout-spacer-x / 2) 0;
   font-weight: bold;
   color: $primary;
   white-space: nowrap;
@@ -69,9 +67,14 @@
   z-index: 12;
 }
 
+// Sidebar Components
+
 @import "modifiers/navmenu-vertical";
 
+// Sidebar Modifiers
+
 @import "themes/sidebar-light";
+@import "themes/sidebar-dark";
 
 @import "modifiers/fixed-sidebar";
 @import "modifiers/closed-sidebar";

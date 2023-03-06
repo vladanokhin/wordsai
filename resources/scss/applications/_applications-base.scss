@@ -1,5 +1,3 @@
-@use 'sass:math';
-
 // Applications
 
 $app-layout-sidebar-width: 270px;
@@ -60,7 +58,7 @@ $app-layout-header-height: 50px;
         align-content: center;
         align-items: center;
         text-align: left;
-        padding: math.div($layout-spacer-x, 2) $layout-spacer-x;
+        padding: ($layout-spacer-x / 2) $layout-spacer-x;
       }
 
       .pane-left {

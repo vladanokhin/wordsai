@@ -1,5 +1,3 @@
-@use 'sass:math';
-
 // Theme Options
 
 // Variables
@@ -72,7 +70,7 @@ $theme-options-width: 500px;
     color: $body-color;
     margin: 0;
     background: $gray-100;
-    padding: math.div($layout-spacer-x, 2) $layout-spacer-x;
+    padding: ($layout-spacer-x / 2) $layout-spacer-x;
     border-bottom: $gray-300 solid 1px;
     border-top: $gray-300 solid 1px;
     display: flex;

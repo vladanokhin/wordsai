@@ -1,5 +1,3 @@
-@use 'sass:math';
-
 // Drawer
 
 .app-drawer-overlay {
@@ -43,7 +41,7 @@
     color: $body-color;
     margin: 0;
     background: $gray-100;
-    padding: math.div($layout-spacer-x, 2) $layout-spacer-x;
+    padding: ($layout-spacer-x / 2) $layout-spacer-x;
     border-bottom: $gray-300 solid 1px;
     border-top: $gray-300 solid 1px;
 
@@ -65,9 +63,9 @@
   @include border-radius(30px);
   background: $white;
   position: absolute;
-  right: math.div($layout-spacer-x, 2);
-  top: math.div($layout-spacer-x, 2);
-  padding: math.div($layout-spacer-x, 3);
+  right: $layout-spacer-x / 2;
+  top: $layout-spacer-x / 2;
+  padding: ($layout-spacer-x / 3);
   box-shadow: $box-shadow-sm;
   z-index: 20;
 

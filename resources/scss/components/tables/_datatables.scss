@@ -1,9 +1,7 @@
-@use 'sass:math';
-
 table.dataTable {
   clear: both;
-  margin-top: math.div($layout-spacer-x, 2) !important;
-  margin-bottom: math.div($layout-spacer-x, 2) !important;
+  margin-top: $layout-spacer-x / 2 !important;
+  margin-bottom: $layout-spacer-x / 2 !important;
   max-width: none !important;
   border-collapse: separate !important;
   border-spacing: 0;

@@ -1,12 +1,16 @@
+
 // BOOTSTRAP 4 VARIABLES
+
 @import "components/bootstrap4/functions";
 @import "components/bootstrap4/variables";
 @import "components/bootstrap4/mixins";
 
 // ArchitectUI Themes Variables
+
 @import "themes/layout-variables";
 
 // BOOTSTRAP 4 IMPORTS
+
 @import "components/bootstrap4/root";
 @import "components/bootstrap4/reboot";
 @import "components/bootstrap4/type";
@@ -43,15 +47,18 @@
 @import "components/bootstrap4/print";
 
 // LAYOUT
+
 @import "layout/layout";
 
 // UTILS
+
 @import "utils/helpers";
 @import "utils/backgrounds";
 @import "utils/animate";
 @import "utils/comps-animations";
 
 // ELEMENTS
+
 @import "elements/buttons";
 @import "elements/dropdown";
 @import "elements/navs";
@@ -66,52 +73,69 @@
 @import "elements/listgroup";
 @import "elements/forms";
 @import "elements/pagination";
+@import "elements/chat";
+@import "elements/forms-wizard";
 
 // DASHBOARD BOXES
+
+@import "widgets/chart-boxes/chart-boxes";
 @import "widgets/content-boxes/content-boxes";
 @import "widgets/profile-boxes/profile-boxes";
-
 // PAGES
 @import "pages/userpages";
-
 // Applications
 @import "applications/applications-base";
-@import "components/drawer/drawer";
-
-// Hamburger button
-@import "components/hamburgers/hamburgers";
-
-// Notifications
-@import "components/notifications/sweetalerts";
-@import "components/notifications/toastr";
-
 // COMPONENTS
-
 // Perfect Scrollbar
 @import "components/perfect-scrollbar/perfect-scrollbar";
 
+// FontAwesome
+//@import "components/icons/fontawesome/fontawesome";
+// Ionicons
+//@import "components/icons/ionicons/ionicons";
+// FlagKit
+//@import "components/icons/flagkit/flagkit";
+// Image Crop
+//@import "components/image-crop/image-crop";
+@import "components/icons/icofont/icofont";
+// Guided Tours
+@import "components/guided-tours/guided-tours";
+// Loading buttons
+@import "components/loading-buttons/loading-buttons";
+// Drawer
+@import "components/drawer/drawer";
+// Hamburger button
+@import "components/hamburgers/hamburgers";
+// Notifications
+@import "components/notifications/sweetalerts";
+@import "components/notifications/toastr";
 // Slick Carousel
 @import "components/slick-carousel/slick/slick";
-
-// Loading buttons
-//@import "components/loading-buttons/loading-buttons";
-
+// Popovers & Tooltips
+@import "components/popovers-tooltips/popovers-tooltips";
+// Calendar
+@import "components/calendar/calendar";
+// Maps
+@import "components/maps/vector-maps";
+// Tree View
+@import "components/tree-view/tree-view";
 // Tables
 @import "components/tables/datatables";
 @import "components/tables/tables";
-
 // Icons
-@import "components/icons/_p7icons";
-@import "components/icons/icofont/icofont.css";
+@import "components/icons/linearicons";
+@import "components/icons/p7icons";
 
 // FORMS
+
 @import "components/forms/datepicker/datepicker";
 @import "components/forms/datepicker/daterangepicker";
 @import "components/forms/rangeslider/rangeslider";
-@import "components/forms/multiselect/multiselect";
+//@import "components/forms/multiselect/multiselect";
 @import "components/forms/dropdown-select/dropdown-select";
 @import "components/forms/wysiwyg/wysiwyg";
 @import "components/forms/toggle-switch/switch";
-
 // Responsive
 @import "layout/responsive/responsive-base";
+// DEMO
+@import "demo-ui/demo";

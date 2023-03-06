@@ -1,5 +1,3 @@
-@use 'sass:math';
-
 .vertical-timeline {
   width: 100%;
   position: relative;
@@ -52,14 +50,14 @@
   .timeline-title {
     font-size: $font-size-xs;
     text-transform: uppercase;
-    margin: 0 0 math.div($spacer, 2);
+    margin: 0 0 ($spacer / 2);
     padding: 2px 0 0;
     font-weight: bold;
   }
 
   p {
     color: $gray-600;
-    margin: 0 0 math.div($spacer, 2);
+    margin: 0 0 ($spacer / 2);
   }
 
   .vertical-timeline-element-date {
@@ -70,7 +68,7 @@
     padding-right: 10px;
     text-align: right;
     color: $gray-500;
-    font-size: math.div($font-size-xs, 1.05);
+    font-size: $font-size-xs / 1.05;
     white-space: nowrap;
   }
 }
@@ -165,15 +163,15 @@
 // Simple Dots Timeline
 
 .vertical-time-simple {
-  padding: math.div($spacer, 2) 0;
+  padding: ($spacer / 2) 0;
 
   .vertical-timeline-element {
-    margin: 0 0 math.div($spacer, 2);
+    margin: 0 0 ($spacer / 2);
   }
 
   .timeline-title {
     font-weight: normal;
-    font-size: math.div($font-size-lg, 1.2);
+    font-size: $font-size-lg / 1.2;
     padding: 0;
   }
 

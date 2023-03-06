@@ -1,5 +1,3 @@
-@use 'sass:math';
-
 /*!
  * FullCalendar v3.9.0
  * Docs & License: https://fullcalendar.io/
@@ -159,7 +157,7 @@ previous button's border...
 
 .fc-popover .fc-header {
   /* TODO: be more consistent with fc-head/fc-body */
-  padding: $layout-spacer-x math.div($layout-spacer-x, 2);
+  padding: $layout-spacer-x ($layout-spacer-x / 2);
 }
 
 .fc-popover .fc-header .fc-title {

@@ -1,5 +1,3 @@
-@use 'sass:math';
-
 // Dropdown
 
 .dropdown-menu {
@@ -16,7 +14,7 @@
 
   .dropdown-header {
     text-transform: uppercase;
-    font-size: math.div($font-size-base, 1.2);
+    font-size: $font-size-base / 1.2;
     color: $primary;
     font-weight: bold;
   }
@@ -32,7 +30,7 @@
 
     .dropdown-icon {
       font-size: 1rem;
-      margin-right: math.div($dropdown-padding-y, 2);
+      margin-right: ($dropdown-padding-y / 2);
       width: 30px;
       text-align: center;
       opacity: .3;
@@ -126,7 +124,7 @@
 
   .dropdown-menu-header-inner {
     margin: -1px -1px 0;
-    padding: ($spacer * 1.5) math.div($spacer, 2);
+    padding: ($spacer * 1.5) ($spacer / 2);
     position: relative;
   }
 
@@ -148,12 +146,12 @@
     z-index: 10;
 
     &.text-left {
-      padding-left: math.div($spacer, 2);
+      padding-left: ($spacer / 2);
     }
 
     &.btn-pane-right {
-      padding-left: math.div($spacer, 2);
-      padding-right: math.div($spacer, 2);
+      padding-left: ($spacer / 2);
+      padding-right: ($spacer / 2);
       display: flex;
       align-content: center;
       align-items: center;
@@ -198,7 +196,7 @@
   }
 
   .grid-menu-xl {
-    margin-bottom: math.div(-$dropdown-padding-y, 1.35);
+    margin-bottom: -($dropdown-padding-y / 1.35);
 
     [class*="col-"] {
       padding: 0;

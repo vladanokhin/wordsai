@@ -1,5 +1,3 @@
-@use 'sass:math';
-
 // Profile Boxes
 
 .profile-block {
@@ -31,16 +29,16 @@
       padding: $layout-spacer-lg;
 
       .menu-header-title {
-        margin: math.div($layout-spacer-x, 2) 0 0;
+        margin: ($layout-spacer-x / 2) 0 0;
       }
 
       .menu-header-subtitle {
-        margin: math.div($layout-spacer-x, 3) 0 0;
+        margin: ($layout-spacer-x / 3) 0 0;
       }
     }
 
     .menu-header-btn-pane {
-      margin: math.div($layout-spacer-x, 3) 0 0;
+      margin: ($layout-spacer-x / 3) 0 0;
 
       .btn-icon {
         color: $white;

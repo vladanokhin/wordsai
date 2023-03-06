@@ -1,12 +1,10 @@
-@use 'sass:math';
-
 @if index($hamburger-types, slider) {
   /*
    * Slider
    */
   .hamburger--slider {
     .hamburger-inner {
-      top: math.div($hamburger-layer-height, 2);
+      top: $hamburger-layer-height / 2;
 
       &::before {
         top: $hamburger-layer-height + $hamburger-layer-spacing;

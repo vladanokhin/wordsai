@@ -57,7 +57,7 @@
       }
     }
 
-    &.opened {
+    &:hover {
       flex: 0 0 $app-sidebar-width !important;
       width: $app-sidebar-width !important;
 

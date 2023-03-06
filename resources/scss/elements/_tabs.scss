@@ -1,5 +1,3 @@
-@use 'sass:math';
-
 // TABS
 
 .nav-pills,
@@ -139,8 +137,8 @@
 .tabs-animated {
   .nav-link {
     position: relative;
-    padding: math.div($layout-spacer-x, 1.5);
-    margin: 0 math.div($layout-spacer-x, 2) 0 0;
+    padding: ($layout-spacer-x / 1.5);
+    margin: 0 ($layout-spacer-x / 2) 0 0;
     color: $body-color;
 
     &::before {
@@ -171,8 +169,8 @@
 
 .tabs-animated-shadow {
   .nav-link {
-    padding: math.div($layout-spacer-x, 3) math.div($layout-spacer-x, 2);
-    margin-bottom: math.div($layout-spacer-x, 2);
+    padding: ($layout-spacer-x / 3) ($layout-spacer-x / 2);
+    margin-bottom: ($layout-spacer-x / 2);
 
     span {
       position: relative;
@@ -222,7 +220,7 @@
 .body-tabs-shadow {
 
   .body-tabs-animated {
-    padding: math.div($layout-spacer-x, 2) 0;
+    padding: ($layout-spacer-x / 2) 0;
 
     .nav-link {
 
@@ -268,13 +266,13 @@
 .tabs-rounded-lg {
   @include border-radius(120px);
   background: $white;
-  padding: $layout-spacer-x * 0.5;
+  padding: $layout-spacer-x / 2;
   margin-bottom: $layout-spacer-x;
 
   .nav-link {
     margin-bottom: 0;
     font-size: $font-size-lg;
-    padding: math.div($layout-spacer-x, 2) math.div($layout-spacer-x, 3);
+    padding: ($layout-spacer-x / 2) ($layout-spacer-x / 3);
 
     &::before {
       @include border-radius(120px !important);

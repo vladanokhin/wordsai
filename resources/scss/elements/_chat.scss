@@ -1,11 +1,9 @@
-@use 'sass:math';
-
 // Chat
 
 .chat-box-wrapper {
   display: flex;
   clear: both;
-  padding: math.div($layout-spacer-x, 2);
+  padding: ($layout-spacer-x / 2);
 
   & + .chat-box-wrapper {
     padding-top: 0;
@@ -17,7 +15,7 @@
     opacity: 1;
     background: $dropdown-link-hover-bg;
     border: 0;
-    padding: math.div($layout-spacer-x, 2) $layout-spacer-x;
+    padding: ($layout-spacer-x / 2) $layout-spacer-x;
     @include border-radius(30px);
     border-top-left-radius: $border-radius;
     flex: 1;
@@ -28,7 +26,7 @@
 
     & + small {
       text-align: left;
-      padding: math.div($layout-spacer-x, 3) 0 0;
+      padding: ($layout-spacer-x / 3) 0 0;
       margin-left: $layout-spacer-x;
       display: block;
     }

@@ -1,5 +1,3 @@
-@use 'sass:math';
-
 // List Group
 
 .todo-list-wrapper {
@@ -8,7 +6,7 @@
     width: 4px;
     height: 60%;
     @include border-radius($border-radius-lg);
-    left: math.div($card-spacer-x, 2);
+    left: ($card-spacer-x / 2);
     top: 20%;
     opacity: .6;
     transition: opacity .2s;
@@ -24,7 +22,7 @@
 
   .custom-control,
   input[checkbox] {
-    margin-left: math.div($card-spacer-x, 2);
+    margin-left: ($card-spacer-x / 2);
   }
 }
 
@@ -35,7 +33,7 @@
 .rm-list-borders {
   .list-group-item {
     border: 0;
-    padding: math.div($card-spacer-y, 1.5) 0;
+    padding: ($card-spacer-y / 1.5) 0;
   }
 }
 

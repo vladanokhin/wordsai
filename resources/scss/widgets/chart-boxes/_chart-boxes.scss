@@ -1,4 +1,3 @@
-@use 'sass:math';
 // Chart boxes
 
 // Variables
@@ -349,7 +348,7 @@ $widget-spacer: $spacer;
     font-weight: bold;
     opacity: .6;
     text-transform: uppercase;
-    padding-bottom: math.div($widget-spacer, 3)
+    padding-bottom: ($widget-spacer / 3)
   }
 
   svg {
