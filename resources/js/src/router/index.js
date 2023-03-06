@@ -11,13 +11,9 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         ...auth,
-        ...admin,
         ...cabinet,
+        ...admin,
         ...[
-            {
-                path: '/',
-                redirect: {'name': 'admin.dashboard'}
-            },
             {
                 path: '/:pathMatch(.*)*',
                 name: 'error.404',
@@ -33,7 +29,7 @@ router.beforeResolve( async (to, from, next) => {
     const middlewares = routes.reduce((middlewares, route) => {
         return route.meta?.middleware ? middlewares.concat(route.meta.middleware) : middlewares;
     }, []);
-    console.log(routes)
+
     if(middlewares.length) {
         for(const middleware of middlewares) {
             await middleware({ to, from, next })

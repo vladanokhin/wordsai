@@ -1,8 +1,6 @@
 import store from '@src/store'
 
-export default async function auth ({ next }) {
-    console.log(store.getters["auth/isAuthenticated"])
-    console.log(!store.getters["auth/user"])
+export default async function user ({ next }) {
     if (store.getters["auth/isAuthenticated"] && !store.getters["auth/user"]) {
         await store.dispatch('auth/CurrentUser')
     }

@@ -108,8 +108,11 @@ export default {
     },
     methods: {
         async submit() {
-            await store.dispatch('auth/LogIn', this.form);
-            return this.$router.push({name: 'user.cabinet'});
+            store.dispatch('auth/LogIn', this.form)
+                .then(() => {
+                    this.$router.push({name: 'user.cabinet'});
+                }
+            );
         },
         initSlider() {
             setTimeout(function (){

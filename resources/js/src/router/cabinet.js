@@ -11,7 +11,7 @@ export default [
                 path: 'cabinet',
                 name: 'user.cabinet',
                 meta: {
-                    tile: 'User Cabinet'
+                    title: 'User Cabinet'
                 },
                 component: () => import('@src/views/user/CabinetView.vue')
             }

@@ -4,21 +4,32 @@ import {getCookieMap} from "@src/helpers/";
 
 const state = {
     user: null,
-    hasCookiesSession: Object.keys(getCookieMap()).includes('XSRF-TOKEN')
+    userId: localStorage.getItem('userId'),
 };
 
 const getters = {
-    isAuthenticated: (state) => state.hasCookiesSession,
+    isAuthenticated: (state) => !!state.userId,
     user: (state) => state.user,
-    getUserData: (state) => (field, def) => (state.user ? state.user[field] : (def ? def : '')),
+};
+
+const mutations = {
+    SET_USER(state, user) {
+        state.user = _.isEmpty(user) || !user ? null : user;
+        state.userId = user?.id;
+
+        user
+            ? localStorage.setItem('userId', state.userId)
+            : localStorage.removeItem('userId');
+    },
+
 };
 
 const actions = {
-
     async LogIn({commit}, form) {
-        await axios.get('csrf-cookie').then(response => {
-            axios.post("login", form)
-                .then(response => commit("setUser", response.data));
+        await axios.get('csrf-cookie').then(async response => {
+            await axios.post("login", form).then((response) => {
+                commit("SET_USER", response.data)
+            });
         });
     },
 
@@ -32,13 +43,13 @@ const actions = {
 
     async CurrentUser({commit}) {
         await axios.get('user')
-            .then(response => commit("setUser", response.data))
-            .catch(response => commit("setUser", null))
+            .then(response => commit("SET_USER", response.data))
+            .catch(response => commit("SET_USER", null))
     },
 
     async ChangeProfile({commit}, user) {
         await axios.post("account-settings/update-general", user)
-            .then(response => commit("setUser", response.data));
+            .then(response => commit("SET_USER", response.data));
     },
 
     async UpdatePassword({commit}, form) {
@@ -47,14 +58,8 @@ const actions = {
 
     async LogOut({ commit }) {
         await axios.post("logout")
-            .then(response => commit("setUser", null));
+            .then(response => commit("SET_USER", null));
     }
-};
-
-const mutations = {
-    setUser(state, user) {
-        state.user = _.isEmpty(user) ? null : user;
-    },
 };
 
 export default {

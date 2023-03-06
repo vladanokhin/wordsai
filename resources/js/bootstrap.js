@@ -1,38 +1,32 @@
 import _ from 'lodash';
-window._ = _;
-
-/**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
- */
-
 import axios from 'axios';
-window.axios = axios;
+import store from "@src/store/";
+import router from "@src/router/";
 
+const onFulfilled = response => response
+const onRejected = error => {
+    if (error.response.status === 401) {
+        store.commit("auth/SET_USER", null)
+        router.push({name: "auth.login"})
+    }
+    // } else if (error.response.status === 403) {
+    //     store.dispatch('toast/add', {
+    //         type: 'warning',
+    //         message: error.response.data?.message,
+    //     })
+    // } else if (error.response.status === 500) {
+    //     store.dispatch('toast/add', {
+    //         type: 'error',
+    //         message: error.response.data?.message,
+    //     })
+    // }
+    return Promise.reject(error)
+}
+
+window.axios = axios;
 window.axios.defaults.withCredentials = true
 window.axios.defaults.baseURL = '/api';
 window.axios.defaults.headers.common['Accept'] = 'application/json';
-// window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
-// import Echo from 'laravel-echo';
-
-// import Pusher from 'pusher-js';
-// window.Pusher = Pusher;
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: import.meta.env.VITE_PUSHER_APP_KEY,
-//     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? 'mt1',
-//     wsHost: import.meta.env.VITE_PUSHER_HOST ? import.meta.env.VITE_PUSHER_HOST : `ws-${import.meta.env.VITE_PUSHER_APP_CLUSTER}.pusher.com`,
-//     wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
-//     wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
-//     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
-//     enabledTransports: ['ws', 'wss'],
-// });
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.interceptors.response.use(onFulfilled, onRejected)
+window._ = _;
