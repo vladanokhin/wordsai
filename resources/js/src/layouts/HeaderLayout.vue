@@ -181,7 +181,7 @@ export default {
         },
         async logout() {
             store.dispatch('auth/LogOut').then(() => {
-                this.$router.push({name: 'auth.login'})
+                this.$router.push({name: 'user.auth.login'})
             });
         }
     }

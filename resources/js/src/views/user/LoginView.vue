@@ -110,7 +110,7 @@ export default {
         async submit() {
             store.dispatch('auth/LogIn', this.form)
                 .then(() => {
-                    this.$router.push({name: 'user.cabinet'});
+                    this.$router.push({name: 'user.dashboard'});
                 }
             );
         },
