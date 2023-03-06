@@ -69,14 +69,9 @@
   z-index: 12;
 }
 
-// Sidebar Components
-
 @import "modifiers/navmenu-vertical";
 
-// Sidebar Modifiers
-
 @import "themes/sidebar-light";
-//@import "themes/sidebar-dark";
 
 @import "modifiers/fixed-sidebar";
 @import "modifiers/closed-sidebar";
