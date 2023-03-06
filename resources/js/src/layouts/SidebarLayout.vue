@@ -5,7 +5,7 @@
             <div class="header__pane ml-auto">
                 <div>
                     <button type="button"
-                            class="hamburger123 close-sidebar-btn123 hamburger--elastic123"
+                            class="hamburger close-sidebar-btn123 hamburger--elastic"
                             data-class="closed-sidebar"
                     >
                             <span class="hamburger-box">
@@ -71,9 +71,15 @@
 </template>
 
 <script>
+import $ from "jquery";
+import 'metismenu';
+
 export default {
     name: "SidebarLayout",
-    methods: {
+    mounted() {
+        setTimeout(function () {
+            $(".vertical-nav-menu").metisMenu();
+        }, 100);
     }
 }
 </script>

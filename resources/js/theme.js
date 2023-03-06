@@ -14,19 +14,19 @@ $(document).ready(() => {
     // }, 100)
 
     // Sidebar Menu
-    setTimeout(function () {
-        $(".vertical-nav-menu").metisMenu();
-    }, 100);
+    // setTimeout(function () {
+    //     $(".vertical-nav-menu").metisMenu();
+    // }, 100);
 
     // Search wrapper trigger
 
-    $('.search-icon').click(function () {
-        $(this).parent().parent().addClass('active');
-    });
-
-    $('.search-wrapper .close').click(function () {
-        $(this).parent().removeClass('active');
-    });
+    // $('.search-icon').click(function () {
+    //     $(this).parent().parent().addClass('active');
+    // });
+    //
+    // $('.search-wrapper .close').click(function () {
+    //     $(this).parent().removeClass('active');
+    // });
 
 
     // BS4 Popover
@@ -141,15 +141,15 @@ $(document).ready(() => {
         $('.open-right-drawer').removeClass('is-active');
     });
 
-    $('.mobile-toggle-nav').click(function () {
-        $(this).toggleClass('is-active');
-        $('.app-container').toggleClass('sidebar-mobile-open');
-    });
+    // $('.mobile-toggle-nav').click(function () {
+    //     $(this).toggleClass('is-active');
+    //     $('.app-container').toggleClass('sidebar-mobile-open');
+    // });
 
-    $('.mobile-toggle-header-nav').click(function () {
-        $(this).toggleClass('active');
-        $('.app-header__content').toggleClass('header-mobile-open');
-    });
+    // $('.mobile-toggle-header-nav').click(function () {
+    //     $(this).toggleClass('active');
+    //     $('.app-header__content').toggleClass('header-mobile-open');
+    // });
 
     $('.mobile-app-menu-btn').click(function () {
         $('.hamburger', this).toggleClass('is-active');
