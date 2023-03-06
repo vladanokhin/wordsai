@@ -1,10 +1,10 @@
 import { createApp } from 'vue';
-import MainLayout from "./layouts/MainLayout.vue";
+import App from "./layouts/App.vue";
 import router from "./router/index";
 import store from "./store";
 
 
-createApp(MainLayout)
+createApp(App)
     .use(store)
     .use(router)
     .mount('#app');

@@ -1,6 +1,6 @@
 <template>
     <div class="app-container app-theme-white body-tabs-shadow">
-        <router-view></router-view>
+        <router-view/>
     </div>
 </template>
 

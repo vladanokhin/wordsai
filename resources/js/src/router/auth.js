@@ -1,11 +1,21 @@
+import guest from "@src/router/middleware/guest";
+
 export default [
     {
-        path: '/login',
-        name: 'auth.login',
+        path: '/user/auth',
         meta: {
-            title: 'Login',
-            layout: 'AuthLayout'
+            middleware: [guest]
         },
-        component: () => import('@src/views/user/LoginView.vue')
+        component: () => import('@src/layouts/AuthLayout.vue'),
+        children: [
+            {
+                path: 'login',
+                name: 'auth.login',
+                meta: {
+                    title: 'Login'
+                },
+                component: () => import('@src/views/user/LoginView.vue')
+            }
+        ]
     }
 ]

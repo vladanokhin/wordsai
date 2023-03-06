@@ -1,18 +1,20 @@
 import axios from "axios";
 import _ from "lodash";
-import { getCookieMap } from '@src/helpers/'
-import store from "@src/store/index.js";
+import {getCookieMap} from "@src/helpers/";
 
 const state = {
-    user: null
+    user: null,
+    hasCookiesSession: Object.keys(getCookieMap()).includes('XSRF-TOKEN')
 };
 
 const getters = {
-    isUserAuthenticated: (state) => !!state.user,
+    isAuthenticated: (state) => state.hasCookiesSession,
+    user: (state) => state.user,
     getUserData: (state) => (field, def) => (state.user ? state.user[field] : (def ? def : '')),
 };
 
 const actions = {
+
     async LogIn({commit}, form) {
         await axios.get('csrf-cookie').then(response => {
             axios.post("login", form)
@@ -28,8 +30,8 @@ const actions = {
         await axios.post("reset-password", form);
     },
 
-    CurrentUser({commit}, user) {
-        axios.get("user", user)
+    async CurrentUser({commit}) {
+        await axios.get('user')
             .then(response => commit("setUser", response.data))
             .catch(response => commit("setUser", null))
     },
@@ -51,12 +53,12 @@ const actions = {
 
 const mutations = {
     setUser(state, user) {
-        console.log('Saved user', user)
         state.user = _.isEmpty(user) ? null : user;
     },
 };
 
 export default {
+    namespaced: true,
     state,
     getters,
     actions,

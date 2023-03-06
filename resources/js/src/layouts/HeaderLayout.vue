@@ -52,19 +52,19 @@
                         <div class="widget-content-left">
                             <div class="btn-group">
                                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                                    <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg" alt="">
+                                    <img width="42" class="rounded-circle" src="/assets/images/avatars/1.jpg" alt="">
                                     <i class="icofont-rounded-down ml-2 opacity-8"></i>
                                 </a>
                                 <div tabindex="-1" role="menu" aria-hidden="true" class="rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right">
                                     <div class="dropdown-menu-header">
                                         <div class="dropdown-menu-header-inner bg-info">
-                                            <div class="menu-header-image opacity-2" style="background-image: url('assets/images/dropdown-header/city3.jpg');"></div>
+                                            <div class="menu-header-image opacity-2" style="background-image: url('/assets/images/dropdown-header/city3.jpg');"></div>
                                             <div class="menu-header-content text-left">
                                                 <div class="widget-content p-0">
                                                     <div class="widget-content-wrapper">
                                                         <div class="widget-content-left mr-3">
                                                             <img width="42" class="rounded-circle"
-                                                                 src="assets/images/avatars/1.jpg"
+                                                                 src="/assets/images/avatars/1.jpg"
                                                                  alt="">
                                                         </div>
                                                         <div class="widget-content-left">
@@ -74,7 +74,10 @@
                                                             </div>
                                                         </div>
                                                         <div class="widget-content-right mr-2">
-                                                            <button class="btn-pill btn-shadow btn-shine btn btn-focus">Logout
+                                                            <button @click="logout"
+                                                                class="btn-pill btn-shadow btn-shine btn btn-focus"
+                                                            >
+                                                                Logout
                                                             </button>
                                                         </div>
                                                     </div>
@@ -166,7 +169,7 @@
 
 <script>
 import $ from "jquery"
-
+import store from "@src/store/";
 export default {
     name: "HeaderLayout",
     methods: {
@@ -177,6 +180,10 @@ export default {
 
             containerElement.toggleClass(classToSwitch);
             closeBtn.toggleClass('is-active');
+        },
+        async logout() {
+            await store.dispatch('auth/LogOut')
+            return this.$router.push({name: 'auth.login'})
         }
     }
 }

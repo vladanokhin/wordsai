@@ -5,13 +5,13 @@ import 'slick-carousel'
 
 $(document).ready(() => {
 
-    setTimeout(function (){
-        $(".slick-slider").slick({
-            dots: true,
-            slidesToShow: 1,
-            slidesToScroll: 1
-        });
-    }, 100)
+    // setTimeout(function (){
+    //     $(".slick-slider").slick({
+    //         dots: true,
+    //         slidesToShow: 1,
+    //         slidesToScroll: 1
+    //     });
+    // }, 100)
 
     // Sidebar Menu
     setTimeout(function () {

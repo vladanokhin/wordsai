@@ -75,6 +75,8 @@
 <script>
 import {mapActions} from "vuex";
 import store from "@src/store/index.js";
+import $ from "jquery";
+// import slick from "slick-carousel";
 
 export default {
     name: "LoginView",
@@ -87,25 +89,37 @@ export default {
             },
             sliderElements: [
                 {
-                    id: 1, style: 'bg-plum-plate', imageUrl: 'assets/images/originals/city.jpg',
+                    id: 1, style: 'bg-plum-plate', imageUrl: '/assets/images/originals/city.jpg',
                     title: 'Perfect Balance', text: 'ArchitectUI is like a dream. Some think it\'s too good to be true! Extensive collection of unified React Boostrap Components and Elements.'
                 },
                 {
-                    id: 2, style: 'bg-premium-dark', imageUrl: 'assets/images/originals/citynights.jpg',
+                    id: 2, style: 'bg-premium-dark', imageUrl: '/assets/images/originals/citynights.jpg',
                     title: 'Scalable, Modular, Consistent', text: 'Easily exclude the components you don\'t require. Lightweight, consistent Bootstrap based styles across all elements and components.'
                 },
                 {
-                    id: 1, style: 'bg-plum-plate', imageUrl: 'assets/images/originals/citydark.jpg',
+                    id: 1, style: 'bg-plum-plate', imageUrl: '/assets/images/originals/citydark.jpg',
                     title: 'Complex, but lightweight', text: 'We\'ve included a lot of components that cover almost all use cases for any type of application.'
                 },
             ]
         }
     },
+    mounted() {
+        this.initSlider();
+    },
     methods: {
         async submit() {
-            await store.dispatch('LogIn', this.form);
+            await store.dispatch('auth/LogIn', this.form);
             return this.$router.push({name: 'user.cabinet'});
         },
+        initSlider() {
+            setTimeout(function (){
+                $(".slick-slider").slick({
+                    dots: true,
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                });
+            }, 100)
+        }
     }
 }
 </script>
