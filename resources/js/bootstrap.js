@@ -7,7 +7,7 @@ const onFulfilled = response => response
 const onRejected = error => {
     if (error.response.status === 401) {
         store.commit("auth/SET_USER", null)
-        router.push({name: "auth.login"})
+        router.push({name: "user.auth.login"})
     }
     // } else if (error.response.status === 403) {
     //     store.dispatch('toast/add', {
