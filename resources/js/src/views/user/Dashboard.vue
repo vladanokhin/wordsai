@@ -1,5 +1,19 @@
 <template>
     <div class="app-main__inner">
+        <div class="app-page-title app-page-title-simple">
+            <div class="page-title-wrapper">
+                <div class="page-title-heading">
+                    <div>
+                        <div class="page-title-head center-elem">
+                            <span class="d-inline-block pr-2">
+                                <i class="lnr-apartment opacity-6"></i>
+                            </span>
+                            <span class="d-inline-block">Dashboard</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-6 col-lg-3">
                 <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-primary border-primary card">
@@ -10,7 +24,7 @@
                                 <div class="widget-chart-flex align-items-center">
                                     <div>
                                         <span class="opacity-10 text-success pr-2">
-                                            <i class="fa fa-angle-up"></i>
+                                            +
                                         </span>
                                         234
                                         <small class="opacity-5 pl-1">%</small>
@@ -35,7 +49,7 @@
                                 <div class="widget-chart-flex align-items-center">
                                     <div>
                                         <span class="opacity-10 text-danger pr-2">
-                                            <i class="fa fa-angle-down"></i>
+                                            -
                                         </span>
                                         71
                                         <small class="opacity-5 pl-1">%</small>
@@ -538,7 +552,7 @@
                     <tbody>
                     <tr>
                         <td class="text-center text-muted" style="width: 80px;">#54</td>
-                        <td class="text-center" style="width: 80px;"><img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg" alt=""></td>
+                        <td class="text-center" style="width: 80px;"><img width="40" class="rounded-circle" src="/assets/images/avatars/4.jpg" alt=""></td>
                         <td class="text-center"><a href="javascript:void(0)">Juan C. Cargill</a></td>
                         <td class="text-center"><a href="javascript:void(0)">Micro Electronics</a></td>
                         <td class="text-center">
@@ -576,7 +590,7 @@
                     <tr>
                         <td class="text-center text-muted" style="width: 80px;">#55</td>
                         <td class="text-center" style="width: 80px;">
-                            <img width="40" class="rounded-circle" src="assets/images/avatars/3.jpg" alt="">
+                            <img width="40" class="rounded-circle" src="/assets/images/avatars/3.jpg" alt="">
                         </td>
                         <td class="text-center"><a href="javascript:void(0)">Johnathan Phelan</a></td>
                         <td class="text-center"><a href="javascript:void(0)">Hatchworks</a></td>
@@ -615,7 +629,7 @@
                     <tr>
                         <td class="text-center text-muted" style="width: 80px;">#56</td>
                         <td class="text-center" style="width: 80px;">
-                            <img width="40" class="rounded-circle" src="assets/images/avatars/2.jpg" alt="">
+                            <img width="40" class="rounded-circle" src="/assets/images/avatars/2.jpg" alt="">
                         </td>
                         <td class="text-center"><a href="javascript:void(0)">Darrell Lowe</a></td>
                         <td class="text-center"><a href="javascript:void(0)">Riddle Electronics</a></td>
@@ -654,7 +668,7 @@
                     <tr>
                         <td class="text-center text-muted" style="width: 80px;">#56</td>
                         <td class="text-center" style="width: 80px;">
-                            <img width="40" class="rounded-circle" src="assets/images/avatars/1.jpg" alt="">
+                            <img width="40" class="rounded-circle" src="/assets/images/avatars/1.jpg" alt="">
                         </td>
                         <td class="text-center"><a href="javascript:void(0)">George T. Cottrell</a></td>
                         <td class="text-center"><a href="javascript:void(0)">Pixelcloud</a></td>
@@ -706,8 +720,219 @@
 </template>
 
 <script>
+import ApexCharts from "apexcharts";
+import 'jquery-circle-progress';
+import $ from 'jquery';
+
 export default {
-    name: "Dashboard"
+    name: "Dashboard",
+    mounted() {
+        new ApexCharts(
+            document.querySelector("#chart-combined"),
+            {
+                chart: {
+                    height: 397,
+                    type: 'line',
+                    toolbar: {
+                        show: false,
+                    }
+                },
+                series: [{
+                    name: 'Website Blog',
+                    type: 'column',
+                    data: [440, 505, 414, 671, 227, 413, 201, 352, 752, 320, 257, 160]
+                }, {
+                    name: 'Social Media',
+                    type: 'line',
+                    data: [23, 42, 35, 27, 43, 22, 17, 31, 22, 22, 12, 16]
+                }],
+                stroke: {
+                    width: [0, 4]
+                },
+                // labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                labels: ['01 Jan 2001', '02 Jan 2001', '03 Jan 2001', '04 Jan 2001', '05 Jan 2001', '06 Jan 2001', '07 Jan 2001', '08 Jan 2001', '09 Jan 2001', '10 Jan 2001', '11 Jan 2001', '12 Jan 2001'],
+                xaxis: {
+                    type: 'datetime'
+                },
+                yaxis: [{
+                    title: {
+                        text: 'Website Blog',
+                    },
+
+                }, {
+                    opposite: true,
+                    title: {
+                        text: 'Social Media'
+                    }
+                }]
+
+            }
+        ).render();
+
+        new ApexCharts(
+            document.querySelector("#chart-radial"),
+            {
+                chart: {
+                    height: 350,
+                    type: 'radialBar',
+                    toolbar: {
+                        show: true
+                    }
+                },
+                plotOptions: {
+                    radialBar: {
+                        startAngle: -135,
+                        endAngle: 225,
+                        hollow: {
+                            margin: 0,
+                            size: '70%',
+                            background: '#fff',
+                            image: undefined,
+                            imageOffsetX: 0,
+                            imageOffsetY: 0,
+                            position: 'front',
+                            dropShadow: {
+                                enabled: true,
+                                top: 3,
+                                left: 0,
+                                blur: 4,
+                                opacity: 0.24
+                            }
+                        },
+                        track: {
+                            background: '#fff',
+                            strokeWidth: '67%',
+                            margin: 0, // margin is in pixels
+                            dropShadow: {
+                                enabled: true,
+                                top: -3,
+                                left: 0,
+                                blur: 4,
+                                opacity: 0.35
+                            }
+                        },
+
+                        dataLabels: {
+                            showOn: 'always',
+                            name: {
+                                offsetY: -10,
+                                show: true,
+                                color: '#888',
+                                fontSize: '17px'
+                            },
+                            value: {
+                                formatter: function (val) {
+                                    return parseInt(val);
+                                },
+                                color: '#111',
+                                fontSize: '36px',
+                                show: true,
+                            }
+                        }
+                    }
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'dark',
+                        type: 'horizontal',
+                        shadeIntensity: 0.5,
+                        gradientToColors: ['#ABE5A1'],
+                        inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [0, 100]
+                    }
+                },
+                series: [75],
+                stroke: {
+                    lineCap: 'round'
+                },
+                labels: ['Percent'],
+
+            }
+        ).render();
+
+        $('.circle-progress-success').circleProgress({
+            value: 0.81,
+            size: 52,
+            lineCap: 'round',
+            fill: {color: '#3ac47d'}
+
+        }).on('circle-animation-progress', function (event, progress, stepValue) {
+            $(this).find('small').html('<span>' + stepValue.toFixed(2).substr(2) + '<span>');
+        });
+
+        $('.circle-progress-danger').circleProgress({
+            value: 0.23,
+            size: 52,
+            lineCap: 'round',
+            fill: {color: '#d92550'}
+
+        }).on('circle-animation-progress', function (event, progress, stepValue) {
+            $(this).find('small').html('<span>' + stepValue.toFixed(2).substr(2) + '<span>');
+        });
+
+        $('.circle-progress-warning').circleProgress({
+            value: 0.23,
+            size: 52,
+            lineCap: 'round',
+            fill: {color: '#fd7e14'}
+
+        }).on('circle-animation-progress', function (event, progress, stepValue) {
+            $(this).find('small').html('<span>' + stepValue.toFixed(2).substr(2) + '<span>');
+        });
+
+        $('.circle-progress-gradient').circleProgress({
+            value: 0.72,
+            size: 52,
+            lineCap: 'round',
+            fill: {gradient: ['#ff1e41', '#ff8130']}
+
+        }).on('circle-animation-progress', function (event, progress, stepValue) {
+            $(this).find('small').html('<span>' + stepValue.toFixed(2).substr(2) + '<span>');
+        });
+
+        $('.circle-progress-gradient-alt-sm').circleProgress({
+            value: 0.58,
+            size: 46,
+            lineCap: 'round',
+            fill: {gradient: ['#007bff', '#16aaff']}
+
+        }).on('circle-animation-progress', function (event, progress, stepValue) {
+            $(this).find('small').html('<span>' + stepValue.toFixed(2).substr(2) + '<span>');
+        });
+
+        $('.circle-progress-danger-sm').circleProgress({
+            value: 0.62,
+            size: 46,
+            lineCap: 'round',
+            fill: {color: '#d92550'}
+
+        }).on('circle-animation-progress', function (event, progress, stepValue) {
+            $(this).find('small').html('<span>' + stepValue.toFixed(2).substr(2) + '<span>');
+        });
+
+        $('.circle-progress-warning-sm').circleProgress({
+            value: 0.72,
+            size: 46,
+            lineCap: 'round',
+            fill: {color: '#fd7e14'}
+
+        }).on('circle-animation-progress', function (event, progress, stepValue) {
+            $(this).find('small').html('<span>' + stepValue.toFixed(2).substr(2) + '<span>');
+        });
+
+        $('.circle-progress-success-sm').circleProgress({
+            value: 0.81,
+            size: 46,
+            lineCap: 'round',
+            fill: {color: '#3ac47d'}
+
+        }).on('circle-animation-progress', function (event, progress, stepValue) {
+            $(this).find('small').html('<span>' + stepValue.toFixed(2).substr(2) + '<span>');
+        });
+    }
 }
 </script>
 

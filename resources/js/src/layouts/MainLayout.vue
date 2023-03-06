@@ -5,7 +5,7 @@
             <SidebarLayout/>
             <div class="app-main__outer">
                 <router-view/>
-<!--                <FooterLayout/>-->
+                <FooterLayout/>
             </div>
         </div>
     </div>
