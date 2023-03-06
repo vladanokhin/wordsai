@@ -38,30 +38,28 @@
             <ul class="vertical-nav-menu">
                 <li class="app-sidebar__heading">Menu</li>
                 <li>
-                    <a href="#">
+                    <router-link :active-class="'mm-active'" :to="{ name: 'user.dashboard' }">
                         <i class="metismenu-icon pe-7s-rocket"></i>
-                        Dashboards
-                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                    </a>
-                    <ul>
-                        <li>
-                            <a href="index.html">
-                                <i class="metismenu-icon">
-                                </i>Analytics
-                            </a>
-                        </li>
-                        <li>
-                            <a href="dashboards-commerce.html">
-                                <i class="metismenu-icon">
-                                </i>Commerce
-                            </a>
-                        </li>
-                    </ul>
+                        Dashboard
+                    </router-link>
                 </li>
                 <li>
-                    <a href="widgets-chart-boxes-3.html">
-                        <i class="metismenu-icon pe-7s-ball">
-                        </i>Chart Boxes 3
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-news-paper">
+                        </i>List of words
+                    </a>
+                </li>
+                <li class="app-sidebar__heading">Accounts</li>
+                <li>
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-config">
+                        </i>Settings
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-door-lock">
+                        </i>Logout
                     </a>
                 </li>
             </ul>
