@@ -146,9 +146,11 @@
 <script>
 import $ from "jquery"
 import store from "@src/store/";
+import {authMixin} from '@src/mixins/authMixin'
 
 export default {
     name: "HeaderLayout",
+    mixins: [authMixin],
     data() {
       return {
           searchText: '',
@@ -179,15 +181,6 @@ export default {
             $(event.currentTarget).parent().removeClass('active');
             this.searchText = '';
         },
-        async logout() {
-            store.dispatch('auth/LogOut').then(() => {
-                this.$router.push({name: 'user.auth.login'})
-            });
-        }
     }
 }
 </script>
-
-<style scoped>
-
-</style>

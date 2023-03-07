@@ -25,7 +25,7 @@
                         <h6 class="mt-3">No account? <a href="javascript:void(0);" class="text-primary">Sign up now</a></h6>
                         <div class="divider row"></div>
                         <div>
-                            <form @submit.prevent="submit">
+                            <form @submit.prevent="login">
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
@@ -73,13 +73,12 @@
 </template>
 
 <script>
-import {mapActions} from "vuex";
-import store from "@src/store/index.js";
 import $ from "jquery";
-// import slick from "slick-carousel";
+import {authMixin} from '@src/mixins/authMixin'
 
 export default {
     name: "LoginView",
+    mixins: [authMixin],
     data() {
         return {
             form: {
@@ -107,13 +106,6 @@ export default {
         this.initSlider();
     },
     methods: {
-        async submit() {
-            store.dispatch('auth/LogIn', this.form)
-                .then(() => {
-                    this.$router.push({name: 'user.dashboard'});
-                }
-            );
-        },
         initSlider() {
             setTimeout(function (){
                 $(".slick-slider").slick({
@@ -121,12 +113,8 @@ export default {
                     slidesToShow: 1,
                     slidesToScroll: 1
                 });
-            }, 100)
+            }, 100);
         }
     }
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -1,6 +1,5 @@
 import axios from "axios";
 import _ from "lodash";
-import {getCookieMap} from "@src/helpers/";
 
 const state = {
     user: null,
