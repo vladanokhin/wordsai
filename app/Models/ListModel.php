@@ -9,8 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $id
  * @property string $name
+ * @property ListWord $words
  * @property User $user
- * @property Carbon $create_at
+ * @property Carbon $created_at
  * @property Carbon $updated_at
  */
 class ListModel extends Model
@@ -31,5 +32,14 @@ class ListModel extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function toArray()
+    {
+        $attributes = $this->attributesToArray();
+        $attributes['words'] = $this->words;
+        $attributes['countWords'] = count($attributes['words']);
+
+        return array_merge($attributes, $this->relationsToArray());
     }
 }

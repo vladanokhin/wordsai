@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $word
  * @property string $sentence
- * @property Carbon $create_at
+ * @property Carbon $created_at
  * @property Carbon $updated_at
  */
 class ListWord extends Model

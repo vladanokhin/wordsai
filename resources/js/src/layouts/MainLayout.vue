@@ -4,7 +4,9 @@
         <div class="app-main">
             <SidebarLayout/>
             <div class="app-main__outer">
-                <router-view/>
+                <div class="app-main__inner">
+                    <router-view/>
+                </div>
                 <FooterLayout/>
             </div>
         </div>
