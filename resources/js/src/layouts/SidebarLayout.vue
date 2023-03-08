@@ -44,10 +44,10 @@
                     </router-link>
                 </li>
                 <li>
-                    <a href="#">
+                    <router-link :active-class="'mm-active'" :to="{name: 'user.lists'}">
                         <i class="metismenu-icon pe-7s-news-paper">
                         </i>List of words
-                    </a>
+                    </router-link>
                 </li>
                 <li class="app-sidebar__heading">Accounts</li>
                 <li>

@@ -26,6 +26,12 @@ export default [
                 name: 'user.dashboard',
                 meta: { title: 'Dashboard' },
                 component: () => import('@src/views/user/Dashboard.vue')
+            },
+            {
+                path: 'lists',
+                name: 'user.lists',
+                meta: { title: 'Lists' },
+                component: () => import('@src/views/user/ListView.vue')
             }
         ]
 
