@@ -33,6 +33,8 @@ router.beforeResolve( async (to, from, next) => {
             await middleware({ to, from, next })
         }
     }
+    else
+        return next();
 })
 
 // Change title on page
