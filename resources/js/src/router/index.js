@@ -33,11 +33,6 @@ router.beforeResolve( async (to, from, next) => {
             await middleware({ to, from, next })
         }
     }
-
-    // All required data loaded
-    // await store.dispatch('loaded')
-
-    return next()
 })
 
 // Change title on page

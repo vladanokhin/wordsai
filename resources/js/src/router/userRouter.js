@@ -1,6 +1,6 @@
 import user from "@src/router/middleware/user";
 import auth from "@src/router/middleware/auth";
-import guest from "@src/router/middleware/guest.js";
+import guest from "@src/router/middleware/guest";
 
 export default [
     {
