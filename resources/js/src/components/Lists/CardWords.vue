@@ -7,76 +7,63 @@
             </template>
             <template #default>
                 <ScrollArea div-class="scrlb-words">
-<!--                    <ul class="todo-list-wrapper list-group list-group-flush">-->
-<!--                        <li class="list-group-item">-->
-<!--                            <div class="row">-->
-<!--                                <label for="listName" class="col-sm-2 col-form-label">-->
-<!--                                    <p class="font-weight-bold">List name:</p>-->
-<!--                                </label>-->
-<!--                                <div class="col-sm-10">-->
-<!--                                    <input v-model="selectedList.name"-->
-<!--                                           id="listName"-->
-<!--                                           placeholder="List name"-->
-<!--                                           name="name"-->
-<!--                                           class="form-control"-->
-<!--                                    >-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </li>-->
+                    <ul class="todo-list-wrapper list-group list-group-flush">
+                        <li class="list-group-item">
+                            <ListGroupItem :input-val="this.selectedList.name"
+                                           input-placeholder="list name"
+                                           input-name="name"
+                                           id-el="listName"
+                                           p-class="font-weight-bold"
+                                           p-text="Name"
+                                           event-name="changeListName"
+                                           @change-list-name="(event) => this.selectedList.name = event.target.value"
+                            />
+                        </li>
 
-<!--                        <li v-if="selectedList.words?.length > 0"-->
-<!--                            class="list-group-item  position-relative"-->
-<!--                            v-for="el in selectedList.words" :key="el.id"-->
-<!--                        >-->
-<!--                            <div class="row" :class="divClass">-->
-<!--                                <label :for="idEl" class="col-sm-2 col-form-label">-->
-<!--                                    <p :class="pClass">{{ pText }}:</p>-->
-<!--                                </label>-->
-<!--                                <div class="col-sm-10">-->
-<!--                                    <input :value="value"-->
-<!--                                           @input="$emit('input', $event.target.value)"-->
-<!--                                           :id="idEl"-->
-<!--                                           :placeholder="inputPlaceholder"-->
-<!--                                           :name="inputName"-->
-<!--                                           class="form-control"-->
-<!--                                    >-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="row" :class="divClass">-->
-<!--                                <label :for="idEl" class="col-sm-2 col-form-label">-->
-<!--                                    <p :class="pClass">{{ pText }}:</p>-->
-<!--                                </label>-->
-<!--                                <div class="col-sm-10">-->
-<!--                                    <input :value="value"-->
-<!--                                           @input="$emit('input', $event.target.value)"-->
-<!--                                           :id="idEl"-->
-<!--                                           :placeholder="inputPlaceholder"-->
-<!--                                           :name="inputName"-->
-<!--                                           class="form-control"-->
-<!--                                    >-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="position-absolute item-action">-->
-<!--                                <button-->
-<!--                                    class="border-0 btn-transition btn btn-outline-danger mr-3 mb-1"-->
-<!--                                    @click="deleteListItem"-->
-<!--                                >-->
-<!--                                    <i class="icofont-trash"></i>-->
-<!--                                </button>-->
-<!--                            </div>-->
-<!--                        </li>-->
-<!--                    </ul>-->
+                        <li v-if="selectedList.words?.length > 0"
+                            class="list-group-item  position-relative"
+                            v-for="(el, index) in selectedList.words" :key="el.id"
+                        >
+                            <ListGroupItem :input-val="el.word"
+                                           :id-el="'list-word-' + index"
+                                           input-placeholder="word"
+                                           input-name="words[]"
+                                           p-class="font-weight-light"
+                                           p-text="Word"
+                                           event-name="changeListWord"
+                                           @change-list-word="(event) => this.selectedList.words[index].word = event.target.value"
+                            />
+                            <ListGroupItem :input-val="el.sentence"
+                                           :id-el="'list-sentence-' + index"
+                                           div-class="mb-3"
+                                           input-placeholder="sentence"
+                                           input-name="sentences[]"
+                                           p-class="font-weight-light"
+                                           p-text="Sentence"
+                                           event-name="changeListSentence"
+                                           @change-list-sentence="(event) => this.selectedList.words[index].sentence = event.target.value"
+                            />
+                            <div class="position-absolute item-action">
+                                <button
+                                    class="border-0 btn-transition btn btn-outline-danger mr-3 mb-1"
+                                    @click="deleteListItem"
+                                >
+                                    <i class="icofont-trash"></i>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
                 </ScrollArea>
                 <div class="d-block text-right card-footer">
-                    <button @click="addNew"
+                    <button @click="addNewItemToList"
                             class="btn btn-primary btn-lg mr-2"
                     >
                         Add new
                     </button>
-                    <button @click="saveList"
+                    <button @click="updateList"
                             class="btn btn-success btn-lg"
                     >
-                        Save
+                        Update
                     </button>
                 </div>
             </template>
@@ -85,19 +72,23 @@
 </template>
 
 <script>
-import Card from "@src/components/Card.vue";
-import ScrollArea from "@src/components/ScrollArea.vue";
-import {perfectScrollBarMixin} from "@src/mixins/perfectScrollBarMixin.js";
 import $ from "jquery";
 import toastr from "toastr";
+import Card from "@src/components/Card.vue";
+import ScrollArea from "@src/components/ScrollArea.vue";
+import ListGroupItem from "@src/components/Lists/ListGroupItem.vue";
+import {perfectScrollBarMixin} from "@src/mixins/perfectScrollBarMixin.js";
+import {alertMixin} from "@src/mixins/alertMixin.js";
+import store from "@src/store/";
 
 export default {
     name: "CardWords",
     components: {
         Card,
         ScrollArea,
+        ListGroupItem,
     },
-    mixins: [perfectScrollBarMixin],
+    mixins: [perfectScrollBarMixin, alertMixin],
     props: {
         selectedList: Object,
     },
@@ -113,34 +104,28 @@ export default {
             if (type === 'new') {
                 parent.remove();
             } else {
-                this.$swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
+                this.confirmDeleteElement()
+                    .then((result) => {
+                        if (!result.isConfirmed)
+                            return;
+                        axios.delete(`lists/${this.selectedList.id}`)
                         parent.remove();
-                        // Swal.fire(
-                        //     'Deleted!',
-                        //     'Your file has been deleted.',
-                        //     'success'
-                        // )
-                    }
-                })
+                    })
             }
         },
-        saveList() {
-            axios.post('lists', this.selectedList)
-                .then(responce => {
-                    toastr.success('Saved')
-                })
-                .catch(response => {
-                    toastr.error('Error')
-                })
+        async updateList() {
+            await store.dispatch('list/updateList', this.selectedList)
+            toastr.success('Updated')
+        },
+        addNewItemToList(){
+            this.selectedList.words.push({
+                id: 0,  // set id 0, for correct creating in db
+                list_id: this.selectedList.id,
+                word: '',
+                sentence: '',
+            });
+            this.scrollToEndBlock();
+            this.selectedList.countWords++;
         }
     }
 }

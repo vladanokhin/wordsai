@@ -32,6 +32,9 @@ const actions = {
         }).catch(response => {
             commit('SET_IS_DELETED_LIST', false);
         });
+    },
+    async updateList({commit}, list) {
+        await axios.put(`lists/${list.id}`, list)
     }
 };
 

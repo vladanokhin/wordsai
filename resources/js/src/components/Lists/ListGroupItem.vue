@@ -4,8 +4,8 @@
             <p :class="pClass">{{ pText }}:</p>
         </label>
         <div class="col-sm-10">
-            <input :value="value"
-                   @input="$emit('input', $event.target.value)"
+            <input :value="inputVal"
+                   @input="$emit(eventName, $event)"
                    :id="idEl"
                    :placeholder="inputPlaceholder"
                    :name="inputName"
@@ -20,20 +20,15 @@
 export default {
     name: "ListGroupItem",
     props: {
-        value: {
-            type: String,
-        },
-        divClass: Object,
+        divClass: String,
         idEl: String,
         pClass: String,
         pText: String,
         inputVal: String,
+        eventName: String,
         inputPlaceholder: String,
         inputName: String,
     },
-    mounted() {
-        this.$emit('renderedItem');
-    }
 }
 </script>
 

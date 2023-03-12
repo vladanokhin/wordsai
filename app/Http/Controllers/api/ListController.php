@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\ListModel;
+use App\Models\ListWord;
 use Illuminate\Http\Request;
 
 class ListController extends Controller
@@ -25,20 +26,7 @@ class ListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $user = $request->user();
-        dd($request->all());
-        $user->lists()->updateOrCreate($request->all());
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function store(ListModel $list)
     {
         //
     }
@@ -47,12 +35,16 @@ class ListController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  ListModel $list
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ListModel $list)
     {
-        //
+        $list->update($request->except('words'));
+        $list->words()->upsert($request->only('words')['words'],
+                                ['word', 'sentence'], ['word', 'sentence']);
+
+        return response('Updated');
     }
 
     /**
@@ -64,6 +56,6 @@ class ListController extends Controller
     public function destroy(ListModel $list)
     {
         $list->delete();
-        return response()->json(['success' => true]);
+        return response('Deleted');
     }
 }
