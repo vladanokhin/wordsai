@@ -1,112 +1,94 @@
 <template>
-    <div class="app-page-title">
-        <div class="page-title-wrapper">
-            <div class="page-title-heading">
-                <div class="page-title-icon">
-                    <i class="pe-7s-note2 icon-gradient bg-sunny-morning">
-                    </i>
-                </div>
-                <div>Lists
-                    <div class="page-title-subheading">
-                        Create your own word lists here.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <PageTitle
+        icon="pe-7s-note2"
+        title="Lists"
+        sub-title="Create your own word lists here."
+    />
     <div class="row">
-        <div class="col-lg-4">
-            <div class="card mb-3">
-                <div class="card-header">Lists</div>
-                <div class="scroll-area-lg">
-                    <div class="scrollbar-container ps--active-y ps">
-                        <ul class="todo-list-wrapper list-group list-group-flush">
-                            <li class="list-group-item" v-for="list in userLists">
-                                <div :class="{'bg-success': list.countWords > 4, 'bg-dark': list.countWords < 5 && list.countWords > 0, 'bg-warning': list.countWords === 0 }"
-                                    class="todo-indicator"
-                                >
-                                </div>
-                                <div class="widget-content p-0">
-                                    <div class="widget-content-wrapper">
-                                        <div class="widget-content-left widget-content-check mr-1">
-                                            <div class="custom-checkbox custom-control">
-                                                <input type="checkbox" :id="'list-' + list.id" class="custom-control-input">
-                                                <label class="custom-control-label" :for="'list-' + list.id">&nbsp</label>
-                                            </div>
-                                        </div>
-                                        <div class="widget-content-left">
-                                            <div class="widget-heading">
-                                                {{ list.name }}
-                                            </div>
-                                            <div class="widget-subheading">
-                                                Words: {{ list.countWords }}
-                                            </div>
-                                        </div>
-                                        <div class="widget-content-right widget-content-actions">
-                                            <button class="border-0 btn-transition btn btn-outline-success">
-                                                <i class="icofont-pencil-alt-5"></i>
-                                            </button>
-                                            <button class="border-0 btn-transition btn btn-outline-danger">
-                                                <i class="icofont-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="d-block text-right card-footer">
-                    <button class="btn btn-success btn-lg">Add list</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-8">
-            <div class="card mb-3">
-                <div class="card-header">Edit list</div>
-                <div class="scroll-area-lg">
-                    <div class="scrollbar-container ps--active-y ps">
-                    </div>
-                </div>
-                <div class="d-block text-right card-footer">
-                    <button class="btn btn-success btn-lg">Save</button>
-                </div>
-            </div>
-        </div>
+        <CardLists :user-lists="userLists" @new-list="newList" @delete-list="deleteList"/>
+        <CardWords :selected-list="selectedList" />
     </div>
 </template>
 
 <script>
-import store from "@src/store/index.js";
-import $ from 'jquery';
-import PerfectScrollbar from "perfect-scrollbar";
+import toastr from "toastr";
+import store from "@src/store/";
+import PageTitle from "@src/components/PageTitle.vue";
+import CardLists from "@src/components/Lists/CardLists.vue";
+import CardWords from "@src/components/Lists/CardWords.vue";
 
 export default {
     name: "ListView",
+    components: {
+        PageTitle,
+        CardWords,
+        CardLists,
+    },
     data() {
         return {
             userLists: [],
+            selectedList: {},
+            newWords: {},
+            lastIdElement: null,
         }
     },
     async mounted() {
-        this.getUserList();
-        this.initScrollBar();
+        await this.getUserList();
+        this.clickEditList(this.userLists[0].id)
     },
     methods: {
         async getUserList () {
             await store.dispatch('list/getUserList');
-            this.userLists = store.getters['list/userList'];
+            this.userLists = store.getters['list/userList']
+                                    .sort((a,b) => b.countWords - a.countWords);
         },
-        initScrollBar() {
-            $('.scrollbar-container').each(function () {
-                const ps = new PerfectScrollbar($(this)[0], {
-                    wheelSpeed: 2,
-                    wheelPropagation: false,
-                    minScrollbarLength: 20
-                });
+        clickEditList(listId) {
+            this.selectedList = store.state.list.userList.find(el => el.id === listId);
+            if(this.selectedList.words.length === 0)
+                this.newWords = {
+                    'list_id': this.selectedList.id,
+                    'word': '',
+                    'sentence': '',
+                };
+            else
+                this.newWords = {};
+        },
+        addNew() {
+            this.selectedList.words.push({
+                'list_id': this.selectedList.id,
+                'word': '',
+                'sentence': '',
+            })
+
+        },
+        setLastIdElement(id) {
+            this.lastIdElement = id;
+        },
+        newList() {
+            this.userLists.push({
+                name: 'New list',
+                user_id: this.selectedList.user_id,
+                words: {},
+                countWords: 0,
+                type: 'new',
             });
+        },
+        async deleteList(index) {
+            const list = this.userLists[index],
+                  isNewList = 'type' in list && list.type === 'new';
+
+            if(!list) {
+                toastr.warning('Not found the list. Please reload a page!')
+                return;
+            }
+
+            if(!isNewList)
+                await store.dispatch('list/deleteListById', list.id);
+
+            if(store.getters['list/isDeletedList'] || isNewList) {
+                this.userLists.splice(index, 1);
+            }
         }
     }
 }
 </script>
-

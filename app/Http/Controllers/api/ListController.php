@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\ListModel;
 use Illuminate\Http\Request;
 
 class ListController extends Controller
@@ -26,7 +27,9 @@ class ListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = $request->user();
+        dd($request->all());
+        $user->lists()->updateOrCreate($request->all());
     }
 
     /**
@@ -36,17 +39,6 @@ class ListController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }
@@ -66,11 +58,12 @@ class ListController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  ListModel $list
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ListModel $list)
     {
-        //
+        $list->delete();
+        return response()->json(['success' => true]);
     }
 }

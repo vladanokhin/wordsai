@@ -21,7 +21,13 @@ class ListModel extends Model
     protected $table = 'lists';
 
     protected $fillable = [
+        'id',
         'name',
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
     ];
 
     public function words()

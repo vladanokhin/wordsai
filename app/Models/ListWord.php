@@ -22,6 +22,11 @@ class ListWord extends Model
       'sentence'
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
     public function list()
     {
         return $this->belongsTo(ListModel::class);
