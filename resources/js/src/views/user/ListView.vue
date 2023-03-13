@@ -5,8 +5,18 @@
         sub-title="Create your own word lists here."
     />
     <div class="row">
-        <CardLists :user-lists="userLists" @new-list="newList" @delete-list="deleteList"/>
-        <CardWords :selected-list="selectedList" />
+        <CardLists :user-lists="userLists"
+                   @new-list="newList"
+                   @delete-list="deleteList"
+        />
+        <CardWords :selected-list="selectedList"
+                   @new-item-list="newItemList"
+                   @update-list-items="updateListItems"
+                   @change-list-name="(event) => this.selectedList.name = event.target.value"
+                   @change-list-word="(event, index) => this.selectedList.words[index].word = event.target.value"
+                   @change-list-sentence="(event, index) => this.selectedList.words[index].sentence = event.target.value"
+
+        />
     </div>
 </template>
 
@@ -53,17 +63,6 @@ export default {
             else
                 this.newWords = {};
         },
-        addNew() {
-            this.selectedList.words.push({
-                'list_id': this.selectedList.id,
-                'word': '',
-                'sentence': '',
-            })
-
-        },
-        setLastIdElement(id) {
-            this.lastIdElement = id;
-        },
         newList() {
             this.userLists.push({
                 name: 'New list',
@@ -88,6 +87,20 @@ export default {
             if(store.getters['list/isDeletedList'] || isNewList) {
                 this.userLists.splice(index, 1);
             }
+        },
+        newItemList() {
+            // TODO BUG with updating created elements
+            this.selectedList.words.push({
+                id: 0,  // set id 0, for correct creating in db
+                list_id: this.selectedList.id,
+                word: '',
+                sentence: '',
+            });
+            this.selectedList.countWords++;
+        },
+        async updateListItems() {
+            await store.dispatch('list/updateList', this.selectedList)
+
         }
     }
 }

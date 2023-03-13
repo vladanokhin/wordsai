@@ -16,7 +16,7 @@
                                            p-class="font-weight-bold"
                                            p-text="Name"
                                            event-name="changeListName"
-                                           @change-list-name="(event) => this.selectedList.name = event.target.value"
+                                           @change-list-name="this.$emit('changeListName', $event)"
                             />
                         </li>
 
@@ -31,7 +31,7 @@
                                            p-class="font-weight-light"
                                            p-text="Word"
                                            event-name="changeListWord"
-                                           @change-list-word="(event) => this.selectedList.words[index].word = event.target.value"
+                                           @change-list-word="this.$emit('changeListWord', $event, index)"
                             />
                             <ListGroupItem :input-val="el.sentence"
                                            :id-el="'list-sentence-' + index"
@@ -41,12 +41,12 @@
                                            p-class="font-weight-light"
                                            p-text="Sentence"
                                            event-name="changeListSentence"
-                                           @change-list-sentence="(event) => this.selectedList.words[index].sentence = event.target.value"
+                                           @change-list-sentence="this.$emit('changeListSentence', $event, index)"
                             />
                             <div class="position-absolute item-action">
                                 <button
                                     class="border-0 btn-transition btn btn-outline-danger mr-3 mb-1"
-                                    @click="deleteListItem"
+                                    @click="deleteListItem(index)"
                                 >
                                     <i class="icofont-trash"></i>
                                 </button>
@@ -79,7 +79,6 @@ import ScrollArea from "@src/components/ScrollArea.vue";
 import ListGroupItem from "@src/components/Lists/ListGroupItem.vue";
 import {perfectScrollBarMixin} from "@src/mixins/perfectScrollBarMixin.js";
 import {alertMixin} from "@src/mixins/alertMixin.js";
-import store from "@src/store/";
 
 export default {
     name: "CardWords",
@@ -89,6 +88,7 @@ export default {
         ListGroupItem,
     },
     mixins: [perfectScrollBarMixin, alertMixin],
+    emits: ['changeListName', 'changeListWord', 'changeListSentence', 'newItemList', 'updateListItems'],
     props: {
         selectedList: Object,
     },
@@ -96,7 +96,7 @@ export default {
         this.initScrollBar('.scrlb-words.scrollbar-container')
     },
     methods: {
-        deleteListItem(event) {
+        deleteListItem(index) {
             const btn = $(event.currentTarget),
                 parent = btn.closest('li'),
                 type = parent.data('type') ?? '';
@@ -113,20 +113,14 @@ export default {
                     })
             }
         },
-        async updateList() {
-            await store.dispatch('list/updateList', this.selectedList)
-            toastr.success('Updated')
+        updateList() {
+            this.$emit('updateListItems');
+            toastr.success('Updated');
         },
-        addNewItemToList(){
-            this.selectedList.words.push({
-                id: 0,  // set id 0, for correct creating in db
-                list_id: this.selectedList.id,
-                word: '',
-                sentence: '',
-            });
+        addNewItemToList() {
+            this.$emit('newItemList');
             this.scrollToEndBlock();
-            this.selectedList.countWords++;
-        }
+        },
     }
 }
 </script>
