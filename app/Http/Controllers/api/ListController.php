@@ -28,9 +28,15 @@ class ListController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(ListModel $list)
+    public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string',
+            'user_id' => 'required|int',
+        ]);
+        ListModel::create($data);
+
+        return response()->json($request->user()->lists->toArray());
     }
 
     /**
@@ -42,6 +48,14 @@ class ListController extends Controller
      */
     public function update(Request $request, ListModel $list)
     {
+        $request->validate([
+            'name'           => 'required|string',
+            'user_id'        => 'required|int',
+            'words.*.list_id'  => 'required|int',
+            'words.*.word'     => 'string',
+            'words.*.sentence' => 'string',
+        ]);
+
         $list->update($request->except('words'));
 
         $words = $request->only('words')['words'];

@@ -14,7 +14,7 @@ const onRejected = error => {
     else if (error.response.status === 403) {
         toastr.warning(error.response.data?.message);
 
-    } else if (error.response.status === 500) {
+    } else if ([500, 422].includes(error.response.status)) {
         toastr.error(error.response.data?.message);
 
     }

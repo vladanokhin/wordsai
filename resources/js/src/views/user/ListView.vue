@@ -54,39 +54,27 @@ export default {
         },
         clickEditList(listId) {
             this.selectedList = store.state.list.userLists.find(el => el.id === listId);
-            if(this.selectedList.words.length === 0)
-                this.newWords = {
-                    'list_id': this.selectedList.id,
-                    'word': '',
-                    'sentence': '',
-                };
-            else
-                this.newWords = {};
         },
-        newList() {
-            this.userLists.push({
+        async newList() {
+            const list = {
                 name: 'New list',
                 user_id: this.selectedList.user_id,
-                words: {},
-                countWords: 0,
-                type: 'new',
-            });
+            };
+            await store.dispatch('list/createNewList', list);
+            this.userLists = store.getters['list/userLists'];
+            const lastIndex = Object.keys(this.userLists).pop();
+            this.selectedList = this.userLists[lastIndex];
         },
          async deleteList(index) {
-            const list = this.userLists[index],
-                  isNewList = 'type' in list && list.type === 'new';
+            const list = this.userLists[index];
 
             if(!list) {
                 toastr.warning('Not found the list. Please reload a page!')
                 return;
             }
 
-            if(!isNewList) {
-                await store.dispatch('list/deleteListById', list.id);
-                this.userLists = store.getters['list/userLists'];
-            } else {
-                this.userLists.splice(index, 1);
-            }
+            await store.dispatch('list/deleteListById', list.id);
+            this.userLists = store.getters['list/userLists'];
 
         },
         newItemList() {

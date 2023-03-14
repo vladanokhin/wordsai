@@ -31,6 +31,11 @@ const actions = {
         await axios.put(`lists/${list.id}`, list).then(response => {
             commit('SET_USER_LISTS', response.data)
         })
+    },
+    async createNewList({commit}, list) {
+        await axios.post('lists', list).then(response => {
+            commit('SET_USER_LISTS', response.data)
+        })
     }
 };
 
