@@ -21,7 +21,6 @@ const actions = {
             commit('SET_USER_LISTS', response.data)
         });
     },
-
     async deleteListById({commit}, id) {
         return await axios.delete(`lists/${id}`).then(response => {
             commit('SET_USER_LISTS', response.data)

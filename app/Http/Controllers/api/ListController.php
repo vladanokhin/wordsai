@@ -60,6 +60,7 @@ class ListController extends Controller
 
         $words = $request->only('words')['words'];
         foreach ($words as $word) {
+            //TODO bug when updating existing items
             ListWord::updateOrCreate($word);
         }
 
