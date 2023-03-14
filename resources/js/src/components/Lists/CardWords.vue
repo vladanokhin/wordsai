@@ -101,10 +101,10 @@ export default {
             if (isExistsItem) {
                 this.confirmDeleteElement().then((result) => {
                     if (result.isConfirmed)
-                        this.$emit('deleteListItem', listItemId);
+                        this.$emit('deleteListItem', isExistsItem, index, listItemId);
                 })
             } else {
-                this.$emit('deleteListItem', listItemId);
+                this.$emit('deleteListItem', isExistsItem, index, listItemId);
             }
         },
         updateList() {

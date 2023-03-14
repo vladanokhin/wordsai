@@ -11,7 +11,7 @@ const onRejected = error => {
         store.commit("auth/SET_USER", null)
         router.push({name: "user.auth.login"})
     }
-    else if (error.response.status === 403) {
+    else if ([403, 404].includes(error.response.status)) {
         toastr.warning(error.response.data?.message);
 
     } else if ([500, 422].includes(error.response.status)) {

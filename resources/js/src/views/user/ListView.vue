@@ -40,8 +40,6 @@ export default {
         return {
             userLists: {},
             selectedList: {},
-            newWords: {},
-            lastIdElement: null,
         }
     },
     async mounted() {
@@ -99,13 +97,19 @@ export default {
             });
             this.selectedList.countWords++;
         },
-        async deleteListItem(listItemId) {
+        async deleteListItem(isExistsItem, index, listItemId) {
             const list = this.selectedList;
-            await store.dispatch('list/deleteListItem', listItemId)
-                .then(response => {
-                    this.setSelectedList(list.id)
-                    toastr.success('Deleted list item')
-                })
+
+            if(isExistsItem) {
+                await store.dispatch('list/deleteListItem', listItemId)
+                    .then(response => {
+                        this.setSelectedList(list.id);
+                        toastr.success('Deleted list item');
+                    })
+            } else {
+                this.selectedList.words.splice(index, 1);
+                toastr.success('Deleted list item');
+            }
         },
     }
 }
