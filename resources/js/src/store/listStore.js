@@ -1,22 +1,18 @@
 import axios from "axios";
 
 const state = {
-    userList: null,
-    isDeletedList: false,
+    userLists: {},
 };
 
 const getters = {
-    userList: (state) => state.userList ?? [],
-    isDeletedList: (state) => state.isDeletedList
+    userLists: (state) => state.userLists.sort((a, b) => b.countWords - a.countWords) ?? {},
+    userListById: (state) => (id) => { return state.userLists.find(list => list.id ===  id) },
 };
 
 const mutations = {
     SET_USER_LISTS(state, lists) {
-        state.userList = lists;
+        state.userLists = lists;
     },
-    SET_IS_DELETED_LIST(state, isDeleted) {
-        state.isDeletedList = isDeleted;
-    }
 };
 
 const actions = {
@@ -28,13 +24,13 @@ const actions = {
 
     async deleteListById({commit}, id) {
         await axios.delete(`lists/${id}`).then(response => {
-            commit('SET_IS_DELETED_LIST', true);
-        }).catch(response => {
-            commit('SET_IS_DELETED_LIST', false);
-        });
+            commit('SET_USER_LISTS', response.data)
+        })
     },
     async updateList({commit}, list) {
-        await axios.put(`lists/${list.id}`, list)
+        await axios.put(`lists/${list.id}`, list).then(response => {
+            commit('SET_USER_LISTS', response.data)
+        })
     }
 };
 

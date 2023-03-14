@@ -18,8 +18,9 @@ class ListWord extends Model
     use HasFactory;
 
     protected $fillable = [
-      'word',
-      'sentence'
+        'word',
+        'sentence',
+        'list_id'
     ];
 
     protected $hidden = [

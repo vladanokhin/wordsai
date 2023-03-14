@@ -44,9 +44,8 @@
                                            @change-list-sentence="this.$emit('changeListSentence', $event, index)"
                             />
                             <div class="position-absolute item-action">
-                                <button
-                                    class="border-0 btn-transition btn btn-outline-danger mr-3 mb-1"
-                                    @click="deleteListItem(index)"
+                                <button class="border-0 btn-transition btn btn-outline-danger mr-3 mb-1"
+                                        @click="deleteListItem(index)"
                                 >
                                     <i class="icofont-trash"></i>
                                 </button>
@@ -97,20 +96,15 @@ export default {
     },
     methods: {
         deleteListItem(index) {
-            const btn = $(event.currentTarget),
-                parent = btn.closest('li'),
-                type = parent.data('type') ?? '';
+            const isExistsItem = 'id' in this.selectedList.words[index];
 
-            if (type === 'new') {
-                parent.remove();
+            if (isExistsItem) {
+                this.confirmDeleteElement().then((result) => {
+                    if (result.isConfirmed)
+                        this.$emit('deleteListItem', index);
+                })
             } else {
-                this.confirmDeleteElement()
-                    .then((result) => {
-                        if (!result.isConfirmed)
-                            return;
-                        axios.delete(`lists/${this.selectedList.id}`)
-                        parent.remove();
-                    })
+                this.$emit('deleteListItem', index);
             }
         },
         updateList() {

@@ -11,6 +11,7 @@
         />
         <CardWords :selected-list="selectedList"
                    @new-item-list="newItemList"
+                   @delete-list-item="deleteListItem"
                    @update-list-items="updateListItems"
                    @change-list-name="(event) => this.selectedList.name = event.target.value"
                    @change-list-word="(event, index) => this.selectedList.words[index].word = event.target.value"
@@ -36,7 +37,7 @@ export default {
     },
     data() {
         return {
-            userLists: [],
+            userLists: {},
             selectedList: {},
             newWords: {},
             lastIdElement: null,
@@ -49,11 +50,10 @@ export default {
     methods: {
         async getUserList () {
             await store.dispatch('list/getUserList');
-            this.userLists = store.getters['list/userList']
-                                    .sort((a,b) => b.countWords - a.countWords);
+            this.userLists = store.getters['list/userLists'];
         },
         clickEditList(listId) {
-            this.selectedList = store.state.list.userList.find(el => el.id === listId);
+            this.selectedList = store.state.list.userLists.find(el => el.id === listId);
             if(this.selectedList.words.length === 0)
                 this.newWords = {
                     'list_id': this.selectedList.id,
@@ -72,7 +72,7 @@ export default {
                 type: 'new',
             });
         },
-        async deleteList(index) {
+         async deleteList(index) {
             const list = this.userLists[index],
                   isNewList = 'type' in list && list.type === 'new';
 
@@ -81,26 +81,28 @@ export default {
                 return;
             }
 
-            if(!isNewList)
+            if(!isNewList) {
                 await store.dispatch('list/deleteListById', list.id);
-
-            if(store.getters['list/isDeletedList'] || isNewList) {
+                this.userLists = store.getters['list/userLists'];
+            } else {
                 this.userLists.splice(index, 1);
             }
+
         },
         newItemList() {
-            // TODO BUG with updating created elements
             this.selectedList.words.push({
-                id: 0,  // set id 0, for correct creating in db
                 list_id: this.selectedList.id,
                 word: '',
                 sentence: '',
             });
             this.selectedList.countWords++;
         },
+        deleteListItem(index) {
+          this.selectedList.words.splice(index, 1)
+        },
         async updateListItems() {
             await store.dispatch('list/updateList', this.selectedList)
-
+            this.selectedList = store.getters['list/userListById'](this.selectedList.id)
         }
     }
 }
