@@ -28,7 +28,7 @@
                                     </div>
                                 </div>
                                 <div class="widget-content-right widget-content-actions">
-                                    <button @click="this.$parent.clickEditList(list.id)"
+                                    <button @click="clickEditList(list.id)"
                                             class="border-0 btn-transition btn btn-outline-success"
                                     >
                                         <i class="icofont-pencil-alt-5"></i>
@@ -87,6 +87,9 @@ export default {
                         this.$emit('deleteList', index);
                     }
                 })
+        },
+        clickEditList(listId) {
+            this.$emit('clickEditList', listId);
         }
     }
 }

@@ -8,6 +8,7 @@
         <CardLists :user-lists="userLists"
                    @new-list="newList"
                    @delete-list="deleteList"
+                   @click-edit-list="setSelectedList"
         />
         <CardWords :selected-list="selectedList"
                    @new-item-list="newItemList"
@@ -45,15 +46,15 @@ export default {
     },
     async mounted() {
         await this.getUserList();
-        this.clickEditList(this.userLists[0].id)
+        this.setSelectedList(this.userLists[0].id)
     },
     methods: {
         async getUserList () {
             await store.dispatch('list/getUserList');
             this.userLists = store.getters['list/userLists'];
         },
-        clickEditList(listId) {
-            this.selectedList = store.state.list.userLists.find(el => el.id === listId);
+        setSelectedList(listId) {
+            this.selectedList = store.getters['list/userListById'](listId);
         },
         async newList() {
             const list = {
@@ -81,8 +82,14 @@ export default {
                     toastr.success(`Deleted list ${list.name}`)
                     this.userLists = store.getters['list/userLists'];
                 });
-
-
+        },
+        async updateListItems() {
+            const list = this.selectedList;
+            await store.dispatch('list/updateList', list)
+                .then(response => {
+                    this.setSelectedList(list.id)
+                    toastr.success('Updated list');
+                });
         },
         newItemList() {
             this.selectedList.words.push({
@@ -92,16 +99,14 @@ export default {
             });
             this.selectedList.countWords++;
         },
-        deleteListItem(index) {
-          this.selectedList.words.splice(index, 1)
-        },
-        async updateListItems() {
-            await store.dispatch('list/updateList', this.selectedList)
+        async deleteListItem(listItemId) {
+            const list = this.selectedList;
+            await store.dispatch('list/deleteListItem', listItemId)
                 .then(response => {
-                    this.selectedList = store.getters['list/userListById'](this.selectedList.id);
-                    toastr.success('Updated list');
+                    this.setSelectedList(list.id)
+                    toastr.success('Deleted list item')
                 })
-        }
+        },
     }
 }
 </script>

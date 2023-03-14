@@ -9,3 +9,4 @@ Route::get('/user', function (Request $request) {
 });
 
 Route::resource('/lists', ListController::class);
+Route::delete('lists/words/{word}', [ListController::class, 'destroyWordOfList']);

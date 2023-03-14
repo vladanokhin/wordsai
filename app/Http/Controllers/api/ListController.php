@@ -78,4 +78,17 @@ class ListController extends Controller
         $list->delete();
         return response()->json($request->user()->lists->toArray());
     }
+
+    /**
+     * Remove the specified word from list.
+     *
+     * @param Request $request
+     * @param ListWord $word
+     * @return JsonResponse
+     */
+    public function destroyWordOfList(Request $request, ListWord $word)
+    {
+        $word->delete();
+        return response()->json($request->user()->lists->toArray());
+    }
 }

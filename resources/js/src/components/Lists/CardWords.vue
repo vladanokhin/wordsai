@@ -45,7 +45,7 @@
                             />
                             <div class="position-absolute item-action">
                                 <button class="border-0 btn-transition btn btn-outline-danger mr-3 mb-1"
-                                        @click="deleteListItem(index)"
+                                        @click="deleteListItem(index, el.id)"
                                 >
                                     <i class="icofont-trash"></i>
                                 </button>
@@ -95,16 +95,16 @@ export default {
         this.initScrollBar('.scrlb-words.scrollbar-container')
     },
     methods: {
-        deleteListItem(index) {
+        deleteListItem(index, listItemId) {
             const isExistsItem = 'id' in this.selectedList.words[index];
 
             if (isExistsItem) {
                 this.confirmDeleteElement().then((result) => {
                     if (result.isConfirmed)
-                        this.$emit('deleteListItem', index);
+                        this.$emit('deleteListItem', listItemId);
                 })
             } else {
-                this.$emit('deleteListItem', index);
+                this.$emit('deleteListItem', listItemId);
             }
         },
         updateList() {

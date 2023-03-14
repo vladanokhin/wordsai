@@ -19,7 +19,7 @@ const actions = {
     async getUserList({commit}) {
         await axios.get('lists').then((response) => {
             commit('SET_USER_LISTS', response.data)
-        })
+        });
     },
 
     async deleteListById({commit}, id) {
@@ -30,12 +30,17 @@ const actions = {
     async updateList({commit}, list) {
         await axios.put(`lists/${list.id}`, list).then(response => {
             commit('SET_USER_LISTS', response.data)
-        })
+        });
     },
     async createNewList({commit}, list) {
         await axios.post('lists', list).then(response => {
             commit('SET_USER_LISTS', response.data)
-        })
+        });
+    },
+    async deleteListItem({commit}, itemId) {
+        return await axios.delete(`lists/words/${itemId}`).then(response => {
+            commit('SET_USER_LISTS', response.data)
+        });
     }
 };
 
