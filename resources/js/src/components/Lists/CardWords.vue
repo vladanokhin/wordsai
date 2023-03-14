@@ -87,7 +87,7 @@ export default {
         ListGroupItem,
     },
     mixins: [perfectScrollBarMixin, alertMixin],
-    emits: ['changeListName', 'changeListWord', 'changeListSentence', 'newItemList', 'updateListItems'],
+    emits: ['changeListName', 'changeListWord', 'changeListSentence', 'newItemList', 'updateListItems', 'deleteListItem'],
     props: {
         selectedList: Object,
     },
@@ -109,7 +109,6 @@ export default {
         },
         updateList() {
             this.$emit('updateListItems');
-            toastr.success('Updated');
         },
         addNewItemToList() {
             this.$emit('newItemList');
@@ -140,9 +139,3 @@ ul.todo-list-wrapper {
 
 }
 </style>
-
-<!--let idx = this.categories.data.findIndex((category) => {&ndash;&gt;-->
-<!--                                return category.id === response.data.data.id-->
-<!--                            })-->
-<!--                            this.$set(this.categories.data, idx, response.data.data)-->
-

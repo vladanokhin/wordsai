@@ -23,9 +23,9 @@ const actions = {
     },
 
     async deleteListById({commit}, id) {
-        await axios.delete(`lists/${id}`).then(response => {
+        return await axios.delete(`lists/${id}`).then(response => {
             commit('SET_USER_LISTS', response.data)
-        })
+        });
     },
     async updateList({commit}, list) {
         await axios.put(`lists/${list.id}`, list).then(response => {

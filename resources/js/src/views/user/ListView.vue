@@ -60,10 +60,13 @@ export default {
                 name: 'New list',
                 user_id: this.selectedList.user_id,
             };
-            await store.dispatch('list/createNewList', list);
-            this.userLists = store.getters['list/userLists'];
-            const lastIndex = Object.keys(this.userLists).pop();
-            this.selectedList = this.userLists[lastIndex];
+            await store.dispatch('list/createNewList', list)
+                .then(response => {
+                    this.userLists = store.getters['list/userLists'];
+                    const lastIndex = Object.keys(this.userLists).pop();
+                    this.selectedList = this.userLists[lastIndex];
+                });
+
         },
          async deleteList(index) {
             const list = this.userLists[index];
@@ -73,8 +76,12 @@ export default {
                 return;
             }
 
-            await store.dispatch('list/deleteListById', list.id);
-            this.userLists = store.getters['list/userLists'];
+            await store.dispatch('list/deleteListById', list.id)
+                .then(response => {
+                    toastr.success(`Deleted list ${list.name}`)
+                    this.userLists = store.getters['list/userLists'];
+                });
+
 
         },
         newItemList() {
@@ -90,7 +97,10 @@ export default {
         },
         async updateListItems() {
             await store.dispatch('list/updateList', this.selectedList)
-            this.selectedList = store.getters['list/userListById'](this.selectedList.id)
+                .then(response => {
+                    this.selectedList = store.getters['list/userListById'](this.selectedList.id);
+                    toastr.success('Updated list');
+                })
         }
     }
 }
