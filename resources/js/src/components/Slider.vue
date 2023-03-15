@@ -1,19 +1,17 @@
 <template>
-    <div class="d-none d-lg-block col-lg-4">
-        <div class="slider-light">
-            <div class="slick-slider">
-                <div v-for="element in sliderElements">
-                    <div :class="['position-relative', 'h-100', 'd-flex', 'justify-content-center', 'align-items-center', element.style]"
-                         tabindex="-1"
+    <div class="slider-light">
+        <div class="slick-slider">
+            <div v-for="element in sliderElements">
+                <div :class="['position-relative', 'h-100', 'd-flex', 'justify-content-center', 'align-items-center', element.style]"
+                     tabindex="-1"
+                >
+                    <div class="slide-img-bg"
+                         :style="{ backgroundImage: `url(${element.imageUrl})` }"
                     >
-                        <div class="slide-img-bg"
-                             :style="{ backgroundImage: `url(${element.imageUrl})` }"
-                        >
-                        </div>
-                        <div class="slider-content">
-                            <h3>{{ element.title }}</h3>
-                            <p>{{ element.text }}</p>
-                        </div>
+                    </div>
+                    <div class="slider-content">
+                        <h3>{{ element.title }}</h3>
+                        <p>{{ element.text }}</p>
                     </div>
                 </div>
             </div>

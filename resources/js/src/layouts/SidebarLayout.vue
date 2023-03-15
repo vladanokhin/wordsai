@@ -57,7 +57,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" @click="logout">
+                    <a href="#" @click="logOut">
                         <i class="metismenu-icon pe-7s-door-lock">
                         </i>Logout
                     </a>

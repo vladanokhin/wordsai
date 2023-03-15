@@ -1,6 +1,12 @@
 <template>
     <div class="app-container app-theme-white body-tabs-shadow">
-        <router-view/>
+        <div class="app-container">
+            <div class="h-100">
+                <div class="h-100 no-gutters row">
+                    <router-view/>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 

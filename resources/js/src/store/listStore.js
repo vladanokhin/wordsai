@@ -5,7 +5,9 @@ const state = {
 };
 
 const getters = {
-    userLists: (state) => state.userLists.sort((a, b) => b.countWords - a.countWords) ?? {},
+    userLists: (state) => state.userLists.length > 0
+                            ? state.userLists.sort((a, b) => b.countWords - a.countWords)
+                            : {},
     userListById: (state) => (id) => { return state.userLists.find(list => list.id ===  id) },
 };
 
@@ -18,7 +20,7 @@ const mutations = {
 const actions = {
     async getUserList({commit}) {
         await axios.get('lists').then((response) => {
-            commit('SET_USER_LISTS', response.data)
+            commit('SET_USER_LISTS', response.data ?? {})
         });
     },
     async deleteListById({commit}, id) {

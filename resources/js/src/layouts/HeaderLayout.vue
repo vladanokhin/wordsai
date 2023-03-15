@@ -92,7 +92,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="widget-content-right mr-2">
-                                                            <button @click="logout"
+                                                            <button @click="logOut"
                                                                 class="btn-pill btn-shadow btn-shine btn btn-focus"
                                                             >
                                                                 Logout
@@ -109,9 +109,12 @@
                                                 <li class="nav-item-header nav-item">Activity
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">View lists
-                                                        <div class="ml-auto badge badge-pill badge-info">8</div>
-                                                    </a>
+                                                    <router-link :to="{name: 'user.lists'}"
+                                                                 :class="['nav-link']"
+                                                    >
+                                                        View lists
+                                                        <div class="ml-auto badge badge-pill badge-info">{{ userLists.length ?? 0 }}</div>
+                                                    </router-link>
                                                 </li>
                                                 <li class="nav-item-header nav-item">
                                                     My Account
@@ -154,7 +157,8 @@ export default {
     data() {
       return {
           searchText: '',
-          user: store.getters["auth/user"]
+          user: store.getters['auth/user'],
+          userLists: store.getters['list/userLists'],
       }
     },
     methods: {

@@ -31,28 +31,15 @@ const actions = {
             });
         });
     },
-
-    async RestorePassword({commit}, form) {
-        await axios.post("forgot-password", form);
+    async SignUp({commit}, form) {
+        await axios.post('register', form).then((response) => {
+            commit("SET_USER", response.data)
+        });
     },
-
-    async ResetPassword({commit}, form) {
-        await axios.post("reset-password", form);
-    },
-
     async CurrentUser({commit}) {
         await axios.get('user')
             .then(response => commit("SET_USER", response.data))
             .catch(response => commit("SET_USER", null))
-    },
-
-    async ChangeProfile({commit}, user) {
-        await axios.post("account-settings/update-general", user)
-            .then(response => commit("SET_USER", response.data));
-    },
-
-    async UpdatePassword({commit}, form) {
-        await axios.post("account-settings/update-password", form);
     },
 
     async LogOut({ commit }) {
