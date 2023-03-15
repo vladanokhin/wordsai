@@ -2,20 +2,7 @@
     <div class="app-container">
         <div class="h-100">
             <div class="h-100 no-gutters row">
-                <div class="d-none d-lg-block col-lg-4">
-                    <div class="slider-light">
-                        <div class="slick-slider">
-                            <div v-for="element in sliderElements">
-                                <div :class="['position-relative', 'h-100', 'd-flex', 'justify-content-center', 'align-items-center', element.style]" tabindex="-1">
-                                    <div class="slide-img-bg" :style="{ backgroundImage: `url(${element.imageUrl})` }"></div>
-                                    <div class="slider-content"><h3>{{ element.title }}</h3>
-                                        <p>{{ element.text }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <Slider :slider-elements="sliderElements" />
                 <div class="h-100 d-flex bg-white justify-content-center align-items-center col-md-12 col-lg-8">
                     <div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
                         <div class="app-logo"></div>
@@ -59,7 +46,8 @@
                                 </div>
                                 <div class="divider row"></div>
                                 <div class="d-flex align-items-center">
-                                    <div class="ml-auto"><a href="javascript:void(0);" class="btn-lg btn btn-link">Recover Password</a>
+                                    <div class="ml-auto">
+                                        <a href="javascript:void(0);" class="btn-lg btn btn-link">Recover Password</a>
                                         <button class="btn btn-primary btn-lg">Login</button>
                                     </div>
                                 </div>
@@ -75,9 +63,11 @@
 <script>
 import $ from "jquery";
 import {authMixin} from '@src/mixins/authMixin'
+import Slider from "@src/components/Slider.vue";
 
 export default {
     name: "LoginView",
+    components: {Slider},
     mixins: [authMixin],
     data() {
         return {
@@ -102,19 +92,5 @@ export default {
             ]
         }
     },
-    mounted() {
-        this.initSlider();
-    },
-    methods: {
-        initSlider() {
-            setTimeout(function (){
-                $(".slick-slider").slick({
-                    dots: true,
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                });
-            }, 100);
-        }
-    }
 }
 </script>
